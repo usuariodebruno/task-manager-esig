@@ -9,11 +9,10 @@ import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.inject.Named;
 import jakarta.enterprise.context.SessionScoped;
-
 @Named("TarefaController")
 @SessionScoped
 public class TarefaController implements Serializable {
-
+    // Gerencia o fluxo entre view e modelo
     private static final long serialVersionUID = 1L;
 
     @EJB
@@ -63,7 +62,6 @@ public class TarefaController implements Serializable {
         tarefaSelecionada = new Tarefa();
     }
 
-    // Getters e Setters
     public List<Tarefa> getTarefas() { return tarefas; }
     public void setTarefas(List<Tarefa> tarefas) { this.tarefas = tarefas; }
 

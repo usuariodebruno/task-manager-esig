@@ -8,7 +8,7 @@ import java.util.List;
 
 @Stateless
 public class TarefaService {
-
+    // Regra de negócio para gerenciar tarefas
     @Inject
     private TarefaDAO tarefaDAO;
 

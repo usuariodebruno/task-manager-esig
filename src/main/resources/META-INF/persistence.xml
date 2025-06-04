@@ -3,12 +3,14 @@
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
 
-  <persistence-unit name="taskPU" transaction-type="JTA">
-    <jta-data-source>java:/PostgreSQLDS</jta-data-source>
-
+  <persistence-unit name="taskPU" transaction-type="RESOURCE_LOCAL">
     <class>com.esig.model.Tarefa</class> 
-    
     <properties>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://c7itisjfjj8ril.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/ddho5b55himmak"/>
+      <property name="jakarta.persistence.jdbc.user" value="u597sdrhpjri0s"/>
+      <property name="jakarta.persistence.jdbc.password" value="pfa3a35d80e30dd351acda9761776537c167657dda926c322ea4579a347cf7a88"/>
+      <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
       <property name="jakarta.persistence.schema-generation.database.action" value="update"/>
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.format_sql" value="true"/>

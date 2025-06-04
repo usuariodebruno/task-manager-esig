@@ -9,7 +9,7 @@ import jakarta.persistence.TypedQuery;
 
 @Stateless
 public class TarefaDAO {
-
+    // Acesso ao banco de dados
     @PersistenceContext(unitName = "taskPU")
     private EntityManager em;
 

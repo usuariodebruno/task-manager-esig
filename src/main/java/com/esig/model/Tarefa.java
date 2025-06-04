@@ -37,7 +37,6 @@ public class Tarefa implements Serializable {
         this.status = "Em andamento";
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }
