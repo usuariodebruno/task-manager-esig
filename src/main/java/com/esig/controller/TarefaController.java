@@ -10,9 +10,9 @@ import jakarta.ejb.EJB;
 import jakarta.inject.Named;
 import jakarta.enterprise.context.SessionScoped;
 
-@Named("tarefaBean")
+@Named("TarefaController")
 @SessionScoped
-public class TarefaBean implements Serializable {
+public class TarefaController implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
