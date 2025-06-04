@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <title>Lista de Tarefas</title>
+    <style>
+        .center-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #EDF1F8;
+        }
+
+        .form-container {
+            border: 1px solid #DEDFE3;
+            border-radius: 8px;
+            padding: 20px 30px;
+            width: 90%;
+            max-width: 900px;
+            box-shadow: 2px 2px 8px rgba(64, 78, 130, 0.08);
+            background: #fff;
+        }
+
+        .form-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            background-color: #C4D2EB;
+            color: #404E82;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #404E82;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .filter-group label {
+            width: 100px;
+            min-width: 100px;
+            font-weight: bold;
+            margin-right: 16px;
+            color: #404E82;
+        }
+
+        .filter-group input,
+        .filter-group select {
+            padding: 5px;
+            border: 1px solid #C4D2EB;
+            border-radius: 4px;
+            background: #EDF1F8;
+            color: #404E82;
+        }
+
+        .filter-group input:focus,
+        .filter-group select:focus {
+            outline: 2px solid #D99C44;
+            background: #fff;
+        }
+
+        .actions {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background: #fff;
+        }
+
+        th,
+        td {
+            border: 1px solid #DEDFE3;
+            padding: 8px 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #404E82;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #EDF1F8;
+        }
+
+        tr:hover {
+            background-color: #C4D2EB;
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 12px; /* Adicione esta linha para espaçamento entre os botões */
+        }
+
+        .actions a,
+        .actions h\:commandlink {
+            text-decoration: none !important;
+            color: #404E82;
+            cursor: pointer;
+            font-weight: 500;
+            padding: 2px 6px;
+            border-radius: 3px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .actions a:hover,
+        .actions h\:commandlink:hover {
+            color: #fff;
+            background: #D99C44;
+            text-decoration: none;
+        }
+
+        h\:commandButton,
+        .button-row h\:commandButton {
+            background: #404E82;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 7px 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            margin-left: 8px;
+        }
+
+        h\:commandButton:hover,
+        .button-row h\:commandButton:hover {
+            background: #D99C44;
+            color: #404E82;
+        }
+
+        h\:inputText,
+        h\:selectOneMenu {
+            border: 1px solid #C4D2EB;
+            border-radius: 4px;
+            background: #EDF1F8;
+            color: #404E82;
+            padding: 5px;
+        }
+
+        h\:inputText:focus,
+        h\:selectOneMenu:focus {
+            outline: 2px solid #D99C44;
+            background: #fff;
+        }
+
+        td.titulo-descricao {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            max-width: 220px;
+        }
+    </style>
+</h:head>
+<h:body>
+    <div class="center-content">
+        <h:form>
+            <div class="form-container">
+                <div class="form-title">Listagem de Tarefas</div>
+
+                <div class="filters">
+                    <!-- Primeira linha -->
+                    <div style="display: flex; gap: 15px; width: 100%; margin-bottom: 10px;">
+                        <div class="filter-group">
+                            <label for="filtroNumero">Número:</label>
+                            <h:inputText id="filtroNumero" value="#{tarefaBean.filtroNumero}" size="100" placeholder="N° exato da tarefa" />
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 15px; width: 100%; margin-bottom: 10px;">
+                        <div class="filter-group">
+                            <label for="filtroTitulo">Título/Descrição:</label>
+                            <h:inputText id="filtroTitulo" value="#{tarefaBean.filtroTitulo}" size="30" />
+                        </div>
+                    </div>
+                    <!-- Segunda linha -->
+                    <div style="display: flex; gap: 15px; width: 100%; margin-bottom: 10px;">
+                        <div class="filter-group">
+                            <label for="filtroStatus">Situação:</label>
+                            <h:selectOneMenu id="filtroStatus" value="#{tarefaBean.filtroStatus}">
+                                <f:selectItem itemValue="" itemLabel="Todas" noSelectionOption="true" />
+                                <f:selectItem itemValue="Em andamento" itemLabel="Em andamento" />
+                                <f:selectItem itemValue="Concluída" itemLabel="Concluída" />
+                            </h:selectOneMenu>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filtroResp">Responsável:</label>
+                            <h:selectOneMenu id="filtroResp" value="#{tarefaBean.filtroResponsavel}">
+                                <f:selectItem itemValue="" itemLabel="Selecione" noSelectionOption="true" />
+                                <f:selectItem itemValue="Lucas" itemLabel="Lucas" />
+                                <f:selectItem itemValue="Yasmin" itemLabel="Yasmin" />
+                                <f:selectItem itemValue="Eugenia" itemLabel="Eugenia" />
+                                <f:selectItem itemValue="Laura" itemLabel="Laura" />
+                                <f:selectItem itemValue="Bruno" itemLabel="Bruno" />
+                            </h:selectOneMenu>
+                        </div>
+                        <div style="flex:1; display:flex; justify-content:flex-end;">
+                            <h:commandButton value="Buscar Tarefas" action="#{tarefaBean.carregarTarefas}" />
+                        </div>
+                    </div>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Número</th>
+                            <th>Título</th>
+                            <th>Responsável</th>
+                            <th>Deadline</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ui:repeat value="#{tarefaBean.tarefas}" var="t" varStatus="status">
+                            <tr>
+                                <td>#{t.id}</td>
+                                <td class="titulo-descricao">#{t.titulo}</td>
+                                <td>#{t.responsavel}</td>
+                                <td>
+                                    <h:outputText value="#{t.deadline}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </td>
+                                <td class="actions">
+                                    <h:commandLink value="Editar" action="form.xhtml">
+                                        <f:setPropertyActionListener target="#{tarefaBean.tarefaSelecionada}" value="#{t}" />
+                                    </h:commandLink> |
+                                    <h:commandLink value="Excluir" action="#{tarefaBean.remover(t)}"
+                                        onclick="if (!confirm('Confirma remoção?')) return false;" /> |
+                                    <h:commandLink value="Concluir" action="#{tarefaBean.concluir(t)}"
+                                        rendered="#{t.status ne 'Concluída'}" />
+                                </td>
+                            </tr>
+                        </ui:repeat>
+                    </tbody>
+                </table>
+
+                <div class="button-row">
+                    <h:commandButton value="Voltar" action="/index?faces-redirect=true" />
+                    <h:commandButton value="Nova Tarefa" action="form.xhtml" />
+                </div>
+                
+            </div>
+        </h:form>
+    </div>
+</h:body>
+
+</html>

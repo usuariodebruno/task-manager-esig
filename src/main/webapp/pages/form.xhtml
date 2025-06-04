@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Cadastro/Alteração de Tarefa</title>
+    <style>
+        body,
+        .center-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #EDF1F8;
+        }
+
+        .form-container {
+            border: 1px solid #DEDFE3;
+            border-radius: 8px;
+            padding: 20px 30px;
+            width: 600px;
+            box-shadow: 2px 2px 8px rgba(64, 78, 130, 0.08);
+            background: #fff;
+        }
+
+        .form-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            background-color: #C4D2EB;
+            color: #404E82;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #404E82;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 32px;
+        }
+
+        .row>label,
+        .field-group label {
+            width: 100px;
+            min-width: 100px;
+            font-weight: bold;
+            color: #404E82;
+            margin-right: 16px;
+        }
+
+        .field-group {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .row input[type="text"],
+        .row textarea,
+        .row select,
+        .selects,
+        .field-group select {
+            flex: 1;
+            padding: 5px;
+            border: 1px solid #C4D2EB;
+            border-radius: 4px;
+            background: #EDF1F8;
+            color: #404E82;
+            font-size: 1em;
+            transition: outline 0.2s, background 0.2s;
+        }
+
+        .row input[type="text"]:focus,
+        .row textarea:focus,
+        .row select:focus,
+        .selects:focus,
+        .field-group select:focus {
+            outline: 2px solid #D99C44;
+            background: #fff;
+        }
+
+        .row textarea {
+            resize: none;
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        h\:commandButton,
+        .button-row h\:commandButton {
+            background: #404E82;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 7px 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        h\:commandButton:hover,
+        .button-row h\:commandButton:hover {
+            background: #D99C44;
+            color: #404E82;
+        }
+
+        h\:messages {
+            color: #D99C44;
+            font-weight: bold;
+        }
+
+        .field-group select {
+            min-width: 120px;
+            max-width: 180px;
+        }
+
+        .date-input {
+            min-width: 150px;
+            max-width: 200px;
+            background: #EDF1F8;
+            color: #404E82;
+            border: 1px solid #C4D2EB;
+            border-radius: 4px;
+            padding: 5px;
+        }
+    </style>
+</h:head>
+<h:body>
+    <div class="center-content">
+        <h:form>
+            <div class="form-container">
+                <div class="form-title">
+                    #{tarefaBean.tarefaSelecionada.id == null ? 'Cadastrar Tarefa' : 'Editar Tarefa'}
+                </div>
+
+                <h:messages globalOnly="true" style="color:#D99C44;" />
+
+                <div class="row">
+                    <label for="titulo">Título:</label>
+                    <h:inputText id="titulo" value="#{tarefaBean.tarefaSelecionada.titulo}" required="true" />
+                </div>
+
+                <div class="row">
+                    <label for="descricao">Descrição:</label>
+                    <h:inputTextarea id="descricao" value="#{tarefaBean.tarefaSelecionada.descricao}" rows="4"
+                        style="height: 80px;" />
+                </div>
+
+                <div class="row" style="gap: 48px;">
+                    <div class="field-group">
+                        <label for="responsavel">Responsável:</label>
+                        <h:selectOneMenu id="responsavel" class="selects" style="margin-left: 7px;"
+                            value="#{tarefaBean.tarefaSelecionada.responsavel}" required="true">
+                            <f:selectItem itemValue="" itemLabel="Selecione" noSelectionOption="true" />
+                            <f:selectItem itemValue="Lucas" itemLabel="Lucas" />
+                            <f:selectItem itemValue="Yasmin" itemLabel="Yasmin" />
+                            <f:selectItem itemValue="Eugenia" itemLabel="Eugenia" />
+                            <f:selectItem itemValue="Laura" itemLabel="Laura" />
+                            <f:selectItem itemValue="Bruno" itemLabel="Bruno" />
+                        </h:selectOneMenu>
+                    </div>
+                    <div class="field-group">
+                        <label for="prioridade">Prioridade:</label>
+                        <h:selectOneMenu id="prioridade" class="selects"
+                            value="#{tarefaBean.tarefaSelecionada.prioridade}" required="true">
+                            <f:selectItem itemValue="" itemLabel="Selecione" noSelectionOption="true" />
+                            <f:selectItem itemValue="Alta" itemLabel="Alta" />
+                            <f:selectItem itemValue="Média" itemLabel="Média" />
+                            <f:selectItem itemValue="Baixa" itemLabel="Baixa" />
+                        </h:selectOneMenu>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label for="deadline">Deadline:</label>
+                    <h:inputText id="deadline" value="#{tarefaBean.tarefaSelecionada.deadline}" required="true"
+                        converterMessage="Data inválida"
+                        styleClass="date-input"
+                        >
+                        <f:convertDateTime pattern="yyyy-MM-dd" />
+                        <f:attribute name="type" value="date" />
+                    </h:inputText>
+                </div>
+
+                <div class="button-row">
+                    <h:commandButton value="Cancelar" immediate="true" action="lista.xhtml?faces-redirect=true" />
+                    <h:commandButton value="#{tarefaBean.tarefaSelecionada.id == null ? 'Cadastrar' : 'Salvar'}"
+                        action="#{tarefaBean.salvar}" />
+                </div>
+            </div>
+        </h:form>
+    </div>
+</h:body>
+
+</html>
