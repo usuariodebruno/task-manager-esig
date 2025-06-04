@@ -179,20 +179,20 @@
                     <div style="display: flex; gap: 15px; width: 100%; margin-bottom: 10px;">
                         <div class="filter-group">
                             <label for="filtroNumero">Número:</label>
-                            <h:inputText id="filtroNumero" value="#{tarefaBean.filtroNumero}" size="100" placeholder="N° exato da tarefa" />
+                            <h:inputText id="filtroNumero" value="#{TarefaController.filtroNumero}" size="100" placeholder="N° exato da tarefa" />
                         </div>
                     </div>
                     <div style="display: flex; gap: 15px; width: 100%; margin-bottom: 10px;">
                         <div class="filter-group">
                             <label for="filtroTitulo">Título/Descrição:</label>
-                            <h:inputText id="filtroTitulo" value="#{tarefaBean.filtroTitulo}" size="30" />
+                            <h:inputText id="filtroTitulo" value="#{TarefaController.filtroTitulo}" size="30" />
                         </div>
                     </div>
                     <!-- Segunda linha -->
                     <div style="display: flex; gap: 15px; width: 100%; margin-bottom: 10px;">
                         <div class="filter-group">
                             <label for="filtroStatus">Situação:</label>
-                            <h:selectOneMenu id="filtroStatus" value="#{tarefaBean.filtroStatus}">
+                            <h:selectOneMenu id="filtroStatus" value="#{TarefaController.filtroStatus}">
                                 <f:selectItem itemValue="" itemLabel="Todas" noSelectionOption="true" />
                                 <f:selectItem itemValue="Em andamento" itemLabel="Em andamento" />
                                 <f:selectItem itemValue="Concluída" itemLabel="Concluída" />
@@ -200,7 +200,7 @@
                         </div>
                         <div class="filter-group">
                             <label for="filtroResp">Responsável:</label>
-                            <h:selectOneMenu id="filtroResp" value="#{tarefaBean.filtroResponsavel}">
+                            <h:selectOneMenu id="filtroResp" value="#{TarefaController.filtroResponsavel}">
                                 <f:selectItem itemValue="" itemLabel="Selecione" noSelectionOption="true" />
                                 <f:selectItem itemValue="Lucas" itemLabel="Lucas" />
                                 <f:selectItem itemValue="Yasmin" itemLabel="Yasmin" />
@@ -210,7 +210,7 @@
                             </h:selectOneMenu>
                         </div>
                         <div style="flex:1; display:flex; justify-content:flex-end;">
-                            <h:commandButton value="Buscar Tarefas" action="#{tarefaBean.carregarTarefas}" />
+                            <h:commandButton value="Buscar Tarefas" action="#{TarefaController.carregarTarefas}" />
                         </div>
                     </div>
                 </div>
@@ -226,7 +226,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <ui:repeat value="#{tarefaBean.tarefas}" var="t" varStatus="status">
+                        <ui:repeat value="#{TarefaController.tarefas}" var="t" varStatus="status">
                             <tr>
                                 <td>#{t.id}</td>
                                 <td class="titulo-descricao">#{t.titulo}</td>
@@ -238,11 +238,11 @@
                                 </td>
                                 <td class="actions">
                                     <h:commandLink value="Editar" action="form.xhtml">
-                                        <f:setPropertyActionListener target="#{tarefaBean.tarefaSelecionada}" value="#{t}" />
+                                        <f:setPropertyActionListener target="#{TarefaController.tarefaSelecionada}" value="#{t}" />
                                     </h:commandLink> |
-                                    <h:commandLink value="Excluir" action="#{tarefaBean.remover(t)}"
+                                    <h:commandLink value="Excluir" action="#{TarefaController.remover(t)}"
                                         onclick="if (!confirm('Confirma remoção?')) return false;" /> |
-                                    <h:commandLink value="Concluir" action="#{tarefaBean.concluir(t)}"
+                                    <h:commandLink value="Concluir" action="#{TarefaController.concluir(t)}"
                                         rendered="#{t.status ne 'Concluída'}" />
                                 </td>
                             </tr>

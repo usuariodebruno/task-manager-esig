@@ -134,19 +134,19 @@
         <h:form>
             <div class="form-container">
                 <div class="form-title">
-                    #{tarefaBean.tarefaSelecionada.id == null ? 'Cadastrar Tarefa' : 'Editar Tarefa'}
+                    #{TarefaController.tarefaSelecionada.id == null ? 'Cadastrar Tarefa' : 'Editar Tarefa'}
                 </div>
 
                 <h:messages globalOnly="true" style="color:#D99C44;" />
 
                 <div class="row">
                     <label for="titulo">Título:</label>
-                    <h:inputText id="titulo" value="#{tarefaBean.tarefaSelecionada.titulo}" required="true" />
+                    <h:inputText id="titulo" value="#{TarefaController.tarefaSelecionada.titulo}" required="true" />
                 </div>
 
                 <div class="row">
                     <label for="descricao">Descrição:</label>
-                    <h:inputTextarea id="descricao" value="#{tarefaBean.tarefaSelecionada.descricao}" rows="4"
+                    <h:inputTextarea id="descricao" value="#{TarefaController.tarefaSelecionada.descricao}" rows="4"
                         style="height: 80px;" />
                 </div>
 
@@ -154,7 +154,7 @@
                     <div class="field-group">
                         <label for="responsavel">Responsável:</label>
                         <h:selectOneMenu id="responsavel" class="selects" style="margin-left: 7px;"
-                            value="#{tarefaBean.tarefaSelecionada.responsavel}" required="true">
+                            value="#{TarefaController.tarefaSelecionada.responsavel}" required="true">
                             <f:selectItem itemValue="" itemLabel="Selecione" noSelectionOption="true" />
                             <f:selectItem itemValue="Lucas" itemLabel="Lucas" />
                             <f:selectItem itemValue="Yasmin" itemLabel="Yasmin" />
@@ -166,7 +166,7 @@
                     <div class="field-group">
                         <label for="prioridade">Prioridade:</label>
                         <h:selectOneMenu id="prioridade" class="selects"
-                            value="#{tarefaBean.tarefaSelecionada.prioridade}" required="true">
+                            value="#{TarefaController.tarefaSelecionada.prioridade}" required="true">
                             <f:selectItem itemValue="" itemLabel="Selecione" noSelectionOption="true" />
                             <f:selectItem itemValue="Alta" itemLabel="Alta" />
                             <f:selectItem itemValue="Média" itemLabel="Média" />
@@ -177,7 +177,7 @@
 
                 <div class="row">
                     <label for="deadline">Deadline:</label>
-                    <h:inputText id="deadline" value="#{tarefaBean.tarefaSelecionada.deadline}" required="true"
+                    <h:inputText id="deadline" value="#{TarefaController.tarefaSelecionada.deadline}" required="true"
                         converterMessage="Data inválida"
                         styleClass="date-input"
                         >
@@ -188,8 +188,8 @@
 
                 <div class="button-row">
                     <h:commandButton value="Cancelar" immediate="true" action="lista.xhtml?faces-redirect=true" />
-                    <h:commandButton value="#{tarefaBean.tarefaSelecionada.id == null ? 'Cadastrar' : 'Salvar'}"
-                        action="#{tarefaBean.salvar}" />
+                    <h:commandButton value="#{TarefaController.tarefaSelecionada.id == null ? 'Cadastrar' : 'Salvar'}"
+                        action="#{TarefaController.salvar}" />
                 </div>
             </div>
         </h:form>
